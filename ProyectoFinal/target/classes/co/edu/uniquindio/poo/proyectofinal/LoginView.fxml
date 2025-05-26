@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.proyectofinal.Controller.LoginController">
+    <center>
+        <VBox fx:id="loginContainer" alignment="CENTER" maxWidth="400.0" spacing="20.0">
+            <padding>
+                <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+            </padding>
+
+            <!-- Header -->
+            <VBox alignment="CENTER" spacing="10.0">
+                <Label fx:id="titleLabel" text="Sistema de Gestión">
+                    <font>
+                        <Font name="System Bold" size="28.0" />
+                    </font>
+                </Label>
+                <Label text="Biblioteca UQ" textFill="#666666">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+            </VBox>
+
+            <!-- Login Form -->
+            <VBox spacing="15.0" styleClass="login-form">
+                <Label text="Acceso Administrador:" textFill="#333333">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+
+                <TextField fx:id="usernameField" promptText="Usuario" prefHeight="40.0" />
+                <PasswordField fx:id="passwordField" promptText="Contraseña" prefHeight="40.0" />
+
+                <Button fx:id="loginButton" text="Iniciar Sesión" prefHeight="45.0" maxWidth="Infinity" />
+
+                <Label fx:id="statusLabel" textFill="#d32f2f" wrapText="true" />
+            </VBox>
+
+            <!-- Separator -->
+            <Separator prefWidth="200.0" />
+
+            <!-- Other Access Options -->
+            <VBox spacing="12.0" alignment="CENTER">
+                <Label text="Otros accesos:" textFill="#666666">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+
+                <Button fx:id="bibliotecarioButton" text="Acceso Bibliotecario" prefHeight="40.0" prefWidth="250.0" />
+                <Button fx:id="consultaButton" text="Consulta Pública" prefHeight="40.0" prefWidth="250.0" />
+            </VBox>
+
+            <!-- Footer -->
+            <VBox alignment="CENTER" spacing="5.0">
+                <VBox.margin>
+                    <Insets top="30.0" />
+                </VBox.margin>
+                <Label text="Universidad del Quindío" textFill="#999999">
+                    <font>
+                        <Font size="12.0" />
+                    </font>
+                </Label>
+                <Label text="Sistema de Biblioteca Digital" textFill="#999999">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Label>
+            </VBox>
+        </VBox>
+    </center>
+
+    <!-- Background Decoration -->
+    <top>
+        <Region prefHeight="50.0" styleClass="header-decoration" />
+    </top>
+    <bottom>
+        <Region prefHeight="30.0" styleClass="footer-decoration" />
+    </bottom>
+</BorderPane>
