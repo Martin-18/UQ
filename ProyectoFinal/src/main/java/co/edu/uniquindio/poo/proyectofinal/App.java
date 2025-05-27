@@ -27,7 +27,6 @@ public class App extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Sistema de Gestión Biblioteca UQ");
 
-        // Configurar ícono de la aplicación
         try {
             Image icon = new Image(getClass().getResourceAsStream("/co/edu/uniquindio/poo/proyectofinal/images/logo.png"));
             this.primaryStage.getIcons().add(icon);
@@ -40,24 +39,19 @@ public class App extends Application {
 
 
     private void inicializarData() {
-        // Inicializar biblioteca
         biblioteca = new Biblioteca("Biblioteca UQ", 1001);
 
-        // Inicializar administrador con credenciales por defecto
         administrador = new Administrador("Juan Pérez", 100);
         administrador.agregarCredencial("admin", "1234");
         administrador.agregarCredencial("root", "admin");
 
-        // Inicializar bibliotecario
         bibliotecario = new Bibliotecario("María González", 200);
         administrador.registrarEmpleado(bibliotecario);
 
-        // Cargar datos de ejemplo
         cargarDatosEjemplo();
     }
 
     private void cargarDatosEjemplo() {
-        // Crear libros físicos
         Fisico libro1 = new Fisico(300, "Planeta", "Estante A1",
                 "Cien Años de Soledad", "Gabriel García Márquez",
                 "Realismo Mágico", 1967, false);
@@ -70,7 +64,6 @@ public class App extends Application {
                 "Rayuela", "Julio Cortázar",
                 "Literatura Contemporánea", 1963, false);
 
-        // Crear libros digitales
         Digital libro4 = new Digital("https://ejemplo.com/don-quijote.pdf",
                 "Don Quijote de la Mancha", "Miguel de Cervantes",
                 "Clásico", 1605, false, Formato.PDF);
@@ -83,14 +76,12 @@ public class App extends Application {
                 "Fundación", "Isaac Asimov",
                 "Ciencia Ficción", 1951, false, Formato.MOBI);
 
-        // Crear libros de referencia
         Referencia libro7 = new Referencia("Enciclopedia Británica Vol. 1", "Varios Autores",
                 "Referencia", 2020, "Sección Consulta A");
 
         Referencia libro8 = new Referencia("Manual de Programación Java", "Oracle Corporation",
                 "Técnico", 2023, "Sección Informática");
 
-        // Agregar libros a la biblioteca
         biblioteca.getLibros().add(libro1);
         biblioteca.getLibros().add(libro2);
         biblioteca.getLibros().add(libro3);
@@ -100,7 +91,6 @@ public class App extends Application {
         biblioteca.getLibros().add(libro7);
         biblioteca.getLibros().add(libro8);
 
-        // Agregar libros al bibliotecario
         bibliotecario.agregarLibro(libro1);
         bibliotecario.agregarLibro(libro2);
         bibliotecario.agregarLibro(libro3);
@@ -110,7 +100,6 @@ public class App extends Application {
         bibliotecario.agregarLibro(libro7);
         bibliotecario.agregarLibro(libro8);
 
-        // Crear usuarios de ejemplo
         Estudiante estudiante1 = new Estudiante("Ana López", 1001, new ArrayList<>(), 3, 15);
         Estudiante estudiante2 = new Estudiante("Carlos Ruiz", 1002, new ArrayList<>(), 3, 15);
         Estudiante estudiante3 = new Estudiante("Sofia Herrera", 1003, new ArrayList<>(), 3, 15);
@@ -121,7 +110,6 @@ public class App extends Application {
         Visitante visitante1 = new Visitante("Laura Martín", 3001, new ArrayList<>(), 0, 0);
         Visitante visitante2 = new Visitante("Pedro Jiménez", 3002, new ArrayList<>(), 0, 0);
 
-        // Agregar usuarios a la biblioteca
         biblioteca.getUsuarios().add(estudiante1);
         biblioteca.getUsuarios().add(estudiante2);
         biblioteca.getUsuarios().add(estudiante3);
@@ -130,7 +118,6 @@ public class App extends Application {
         biblioteca.getUsuarios().add(visitante1);
         biblioteca.getUsuarios().add(visitante2);
 
-        // Agregar usuarios al bibliotecario
         bibliotecario.agregarUsuario(estudiante1);
         bibliotecario.agregarUsuario(estudiante2);
         bibliotecario.agregarUsuario(estudiante3);
@@ -139,7 +126,6 @@ public class App extends Application {
         bibliotecario.agregarUsuario(visitante1);
         bibliotecario.agregarUsuario(visitante2);
 
-        // Realizar algunos préstamos de ejemplo
         bibliotecario.realizarPrestamo(1001, "El Principito");
         bibliotecario.realizarPrestamo(2001, "1984");
         bibliotecario.realizarPrestamo(1002, "Cien Años de Soledad");
@@ -177,7 +163,6 @@ public class App extends Application {
         }
     }
 
-    // Getters estáticos para acceso global
     public static Biblioteca getBiblioteca() {
         return biblioteca;
     }
@@ -190,7 +175,6 @@ public class App extends Application {
         return bibliotecario;
     }
 
-    // Getter para el stage principal
     public Stage getPrimaryStage() {
         return primaryStage;
     }

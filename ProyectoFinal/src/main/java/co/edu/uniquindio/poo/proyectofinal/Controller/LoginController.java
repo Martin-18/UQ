@@ -34,12 +34,10 @@ public class LoginController {
     @FXML
     private void initialize() {
         try {
-            // Cargar la imagen usando la ruta relativa desde resources
             Image logo = new Image(getClass().getResourceAsStream("/assets/logo.png"));
             if (logoImageView != null) {
                 logoImageView.setImage(logo);
 
-                // Aplicar efecto de sombra al logo
                 DropShadow shadow = new DropShadow();
                 shadow.setRadius(10.0);
                 shadow.setOffsetX(3.0);
@@ -52,14 +50,12 @@ public class LoginController {
             e.printStackTrace();
         }
 
-        // Configurar eventos
         loginButton.setOnAction(e -> handleAdminLogin());
         bibliotecarioButton.setOnAction(e -> handleBibliotecarioAccess());
         consultaButton.setOnAction(e -> handleConsultaPublica());
 
         configurarEstilos();
 
-        // Obtener las instancias
         this.administrador = App.getAdministrador();
         this.bibliotecario = App.getBibliotecario();
     }
@@ -108,12 +104,9 @@ public class LoginController {
     private void abrirVentanaAdministrador() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            // Actualizar la ruta para que coincida con la estructura del proyecto
             loader.setLocation(App.class.getResource("/co/edu/uniquindio/poo/proyectofinal/AdministradorView.fxml"));
 
             Scene scene = new Scene(loader.load());
-            // Comentar temporalmente la línea de estilos CSS
-            // scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
 
             AdministradorController controller = loader.getController();
             controller.setAdministrador(administrador);
@@ -127,7 +120,7 @@ public class LoginController {
             stage.show();
 
         } catch (Exception e) {
-            e.printStackTrace(); // Agregar esto para ver el error completo
+            e.printStackTrace();
             mostrarError("Error al abrir panel de administrador: " + e.getMessage());
         }
     }
@@ -139,12 +132,9 @@ public class LoginController {
             loader.setLocation(App.class.getResource("/co/edu/uniquindio/poo/proyectofinal/BibliotecarioView.fxml"));
 
             Scene scene = new Scene(loader.load());
-            // Comentar o eliminar la línea del CSS por ahora
-            // scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
 
             BibliotecarioController controller = loader.getController();
 
-            // Configurar el controlador con las dependencias necesarias
             controller.setApp(app);
             controller.setBibliotecario(App.getBibliotecario());
             controller.setBiblioteca(App.getBiblioteca());
@@ -166,11 +156,8 @@ public class LoginController {
     private void abrirVentanaConsulta() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            // Modifica la ruta para que coincida con la estructura del proyecto
             loader.setLocation(App.class.getResource("/co/edu/uniquindio/poo/proyectofinal/ConsultaView.fxml"));
             Scene scene = new Scene(loader.load());
-            // Comenta temporalmente la línea de estilos
-            // scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
 
             ConsultaController controller = loader.getController();
             controller.setBiblioteca(App.getBiblioteca());
@@ -183,7 +170,7 @@ public class LoginController {
             stage.show();
 
         } catch (Exception e) {
-            e.printStackTrace(); // Agrega esto para ver el error completo
+            e.printStackTrace();
             mostrarError("Error al abrir consulta pública: " + e.getMessage());
         }
     }

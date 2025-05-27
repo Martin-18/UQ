@@ -8,10 +8,8 @@
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="co.edu.uniquindio.poo.proyectofinal.Controller.ConsultaController">
 
-    <!-- Header -->
     <top>
         <VBox styleClass="header-section">
-            <!-- Título -->
             <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header-content">
                 <padding>
                     <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
@@ -26,7 +24,6 @@
                 <Region HBox.hgrow="ALWAYS" />
             </HBox>
 
-            <!-- Búsqueda y Filtros -->
             <GridPane hgap="15.0" vgap="15.0" styleClass="search-section">
                 <padding>
                     <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
@@ -54,14 +51,12 @@
         </VBox>
     </top>
 
-    <!-- Contenido Principal -->
     <center>
         <VBox spacing="20.0" styleClass="content-section">
             <padding>
                 <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
             </padding>
 
-            <!-- Estadísticas -->
             <HBox spacing="30.0" styleClass="stats-section">
                 <VBox styleClass="stat-box" alignment="CENTER">
                     <Label fx:id="totalLibrosLabel" text="Total: 0" styleClass="stat-value">
@@ -91,7 +86,6 @@
                 </VBox>
             </HBox>
 
-            <!-- Tabla de Libros -->
             <TableView fx:id="librosTable" VBox.vgrow="ALWAYS" styleClass="book-table">
                 <columns>
                     <TableColumn fx:id="tituloColumn" text="Título" prefWidth="250.0"/>
@@ -103,7 +97,6 @@
                 </columns>
             </TableView>
 
-            <!-- Detalles del Libro -->
             <VBox spacing="10.0" styleClass="details-section">
                 <Label text="Detalles del Libro" styleClass="section-title">
                     <font>
@@ -117,7 +110,6 @@
         </VBox>
     </center>
 
-    <!-- Barra de Estado -->
     <bottom>
         <HBox alignment="CENTER_LEFT" styleClass="status-bar">
             <padding>

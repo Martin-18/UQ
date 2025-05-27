@@ -128,7 +128,6 @@ public class ConsultaController {
         detalles.append("Tipo: ").append(libro.getClass().getSimpleName()).append("\n");
         detalles.append("Estado: ").append(libro.isPrestado() ? "Prestado" : "Disponible").append("\n");
 
-        // Detalles específicos según el tipo de libro
         if (libro instanceof Fisico) {
             Fisico fisico = (Fisico) libro;
             detalles.append("\nDetalles Físicos:\n");
@@ -185,7 +184,6 @@ public class ConsultaController {
             librosData.clear();
             librosData.addAll(biblioteca.getLibros());
 
-            // Actualizar lista de géneros
             Set<String> generos = biblioteca.getLibros().stream()
                     .map(Libro::getGenero)
                     .collect(Collectors.toSet());

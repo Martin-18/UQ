@@ -37,22 +37,18 @@ public class AdministradorController {
 
     @FXML
     private void initialize() {
-        // Configurar la tabla de empleados
         nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         empleadosTable.setItems(empleadosData);
 
-        // Configurar eventos de botones
         registrarEmpleadoBtn.setOnAction(e -> registrarEmpleado());
         eliminarEmpleadoBtn.setOnAction(e -> eliminarEmpleado());
         agregarCredencialBtn.setOnAction(e -> agregarCredencial());
         generarReporteBtn.setOnAction(e -> generarReporte());
         
-        // Agregar el evento para el botón de modificar
         modificarEmpleadoBtn.setOnAction(e -> modificarEmpleado());
         
-        // Configurar la selección de la tabla para habilitar/deshabilitar botones
         empleadosTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
                     boolean haySeleccion = newValue != null;
@@ -60,7 +56,6 @@ public class AdministradorController {
                     modificarEmpleadoBtn.setDisable(!haySeleccion);
                     
                     if (haySeleccion) {
-                        // Llenar los campos con los datos del empleado seleccionado
                         nombreEmpleadoField.setText(newValue.getNombre());
                         idEmpleadoField.setText(String.valueOf(newValue.getId()));
                     }
@@ -73,7 +68,6 @@ public class AdministradorController {
     }
 
     private void configurarEstilos() {
-        // Aplicar estilos CSS a los componentes
         nombreEmpleadoField.getStyleClass().add("text-field-custom");
         idEmpleadoField.getStyleClass().add("text-field-custom");
         usuarioField.getStyleClass().add("text-field-custom");
@@ -101,7 +95,6 @@ public class AdministradorController {
         try {
             int id = Integer.parseInt(idTexto);
 
-            // Verificar que el ID no esté duplicado
             for (Bibliotecario emp : administrador.getEmpleados()) {
                 if (emp.getId() == id) {
                     mostrarError("Ya existe un empleado con ese ID");
@@ -112,10 +105,8 @@ public class AdministradorController {
             Bibliotecario nuevoBibliotecario = new Bibliotecario(nombre, id);
             administrador.registrarEmpleado(nuevoBibliotecario);
 
-            // Actualizar la tabla
             actualizarTablaEmpleados();
 
-            // Limpiar campos
             nombreEmpleadoField.clear();
             idEmpleadoField.clear();
 
@@ -135,7 +126,6 @@ public class AdministradorController {
             return;
         }
 
-        // Mostrar confirmación
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmar eliminación");
         alert.setHeaderText("¿Está seguro de eliminar este empleado?");
@@ -195,7 +185,6 @@ public class AdministradorController {
         statusLabel.setText(mensaje);
         statusLabel.setStyle("-fx-text-fill: #2e7d32;");
 
-        // Limpiar el mensaje después de 3 segundos
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.seconds(3),
                 e -> statusLabel.setText("")
@@ -234,7 +223,6 @@ public class AdministradorController {
         try {
             int nuevoId = Integer.parseInt(idTexto);
 
-            // Verificar que el nuevo ID no esté duplicado (excepto si es el mismo)
             for (Bibliotecario emp : administrador.getEmpleados()) {
                 if (emp.getId() == nuevoId && emp != empleadoSeleccionado) {
                     mostrarError("Ya existe otro empleado con ese ID");
@@ -242,7 +230,6 @@ public class AdministradorController {
                 }
             }
 
-            // Mostrar diálogo de confirmación
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmar modificación");
             alert.setHeaderText("¿Está seguro de modificar este empleado?");
@@ -251,14 +238,11 @@ public class AdministradorController {
                                "\nID: " + nuevoId);
 
             if (alert.showAndWait().get() == ButtonType.OK) {
-                // Actualizar datos del empleado
                 empleadoSeleccionado.setNombre(nuevoNombre);
                 empleadoSeleccionado.setId(nuevoId);
 
-                // Actualizar la tabla
                 actualizarTablaEmpleados();
                 
-                // Limpiar campos
                 limpiarCampos();
                 
                 mostrarExito("Empleado modificado exitosamente");

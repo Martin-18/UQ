@@ -9,10 +9,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,33 +18,27 @@ import java.util.ArrayList;
 
 public class BibliotecarioController {
 
-    // Campos para gestión de libros
     @FXML private TextField tituloLibroField;
     @FXML private TextField autorLibroField;
     @FXML private TextField generoLibroField;
     @FXML private TextField anioLibroField;
     @FXML private ComboBox<String> tipoLibroCombo;
 
-    // Campos para gestión de usuarios
     @FXML private TextField nombreUsuarioField;
     @FXML private TextField idUsuarioField;
     @FXML private ComboBox<String> tipoUsuarioCombo;
 
-    // Campos para gestión de préstamos
     @FXML private TextField idUsuarioPrestamoField;
     @FXML private TextField tituloPrestamoField;
 
-    // Tablas
     @FXML private TableView<Libro> librosTable;
     @FXML private TableView<Usuario> usuariosTable;
     @FXML private TableView<Prestamo> prestamosTable;
 
-    // Elementos de UI adicionales
     @FXML private Label bibliotecarioLabel;
     @FXML private TextArea estadisticasArea;
     @FXML private Label statusLabel;
 
-    // Botones
     @FXML private Button agregarLibroBtn;
     @FXML private Button limpiarCamposBtn;
     @FXML private Button registrarUsuarioBtn;
@@ -57,12 +49,10 @@ public class BibliotecarioController {
     @FXML private Button generarEstadisticasBtn;
     @FXML private Button exportarEstadisticasBtn;
 
-    // Variables de control
     private App app;
     private Biblioteca biblioteca;
     private Bibliotecario bibliotecario;
 
-    // Colecciones observables para las tablas
     private ObservableList<Libro> librosData = FXCollections.observableArrayList();
     private ObservableList<Usuario> usuariosData = FXCollections.observableArrayList();
     private ObservableList<Prestamo> prestamosData = FXCollections.observableArrayList();
@@ -70,12 +60,10 @@ public class BibliotecarioController {
     @FXML
     private void initialize() {
         try {
-            // Inicializar las colecciones observables
             librosData = FXCollections.observableArrayList();
             usuariosData = FXCollections.observableArrayList();
             prestamosData = FXCollections.observableArrayList();
 
-            // Configurar los ComboBox
             if (tipoLibroCombo != null) {
                 tipoLibroCombo.getItems().addAll("Físico", "Digital", "Referencia");
             }
@@ -83,7 +71,6 @@ public class BibliotecarioController {
                 tipoUsuarioCombo.getItems().addAll("Estudiante", "Docente", "Visitante");
             }
 
-            // Configurar los botones si existen
             if (agregarLibroBtn != null) agregarLibroBtn.setOnAction(e -> agregarLibro());
             if (limpiarCamposBtn != null) limpiarCamposBtn.setOnAction(e -> limpiarCamposLibro());
             if (registrarUsuarioBtn != null) registrarUsuarioBtn.setOnAction(e -> registrarUsuario());
@@ -93,10 +80,8 @@ public class BibliotecarioController {
             if (generarEstadisticasBtn != null) generarEstadisticasBtn.setOnAction(e -> generarEstadisticas());
             if (exportarEstadisticasBtn != null) exportarEstadisticasBtn.setOnAction(e -> exportarEstadisticas());
 
-            // Configurar las tablas si existen
             configurarTablas();
             
-            // Configurar estilos
             configurarEstilos();
             
         } catch (Exception e) {
@@ -106,7 +91,6 @@ public class BibliotecarioController {
     }
 
     private void configurarTablas() {
-        // Configurar tabla de libros
         TableColumn<Libro, String> tituloColumn = new TableColumn<>("Título");
         TableColumn<Libro, String> autorColumn = new TableColumn<>("Autor");
         TableColumn<Libro, String> generoColumn = new TableColumn<>("Género");
@@ -129,7 +113,6 @@ public class BibliotecarioController {
                                       anioColumn, tipoColumn, estadoColumn);
         librosTable.setItems(librosData);
 
-        // Configurar tabla de usuarios
         TableColumn<Usuario, String> nombreColumn = new TableColumn<>("Nombre");
         TableColumn<Usuario, Integer> idColumn = new TableColumn<>("ID");
         TableColumn<Usuario, String> tipoUsuarioColumn = new TableColumn<>("Tipo");
@@ -147,7 +130,6 @@ public class BibliotecarioController {
         usuariosTable.getColumns().addAll(nombreColumn, idColumn, tipoUsuarioColumn, prestadosColumn);
         usuariosTable.setItems(usuariosData);
 
-        // Configurar tabla de préstamos
         TableColumn<Prestamo, String> usuarioPrestamoColumn = new TableColumn<>("Usuario");
         TableColumn<Prestamo, String> libroPrestamoColumn = new TableColumn<>("Libro");
         TableColumn<Prestamo, String> fechaPrestamoColumn = new TableColumn<>("Fecha Préstamo");
@@ -351,7 +333,6 @@ public class BibliotecarioController {
         }
     }
 
-    // Métodos de utilidad
     private void actualizarTablaLibros() {
         librosData.setAll(bibliotecario.getLibros());
     }
@@ -403,7 +384,6 @@ public class BibliotecarioController {
         timeline.play();
     }
 
-    // Métodos de configuración
     public void setApp(App app) {
         this.app = app;
     }

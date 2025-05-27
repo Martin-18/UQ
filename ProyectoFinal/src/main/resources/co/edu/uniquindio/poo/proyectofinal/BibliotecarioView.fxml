@@ -7,7 +7,6 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.proyectofinal.Controller.BibliotecarioController">
 
-    <!-- Header -->
     <top>
         <VBox styleClass="header-section">
             <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header-content">
@@ -32,18 +31,15 @@
         </VBox>
     </top>
 
-    <!-- Main Content -->
     <center>
         <TabPane tabClosingPolicy="UNAVAILABLE" styleClass="main-tab-pane">
 
-            <!-- Tab: Gestión de Libros -->
             <Tab text="Gestión de Libros">
                 <VBox spacing="20.0" styleClass="content-section">
                     <padding>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                     </padding>
 
-                    <!-- Agregar Libro -->
                     <VBox spacing="15.0" styleClass="form-section">
                         <Label text="Agregar Nuevo Libro" styleClass="section-title">
                             <font>
@@ -80,7 +76,6 @@
                                       GridPane.columnIndex="1" GridPane.rowIndex="2" prefHeight="35.0" prefWidth="200.0" />
                         </GridPane>
 
-                        <!-- Campos específicos por tipo de libro -->
                         <VBox fx:id="camposEspecificosBox" spacing="10.0" />
 
                         <HBox spacing="10.0" alignment="CENTER_LEFT">
@@ -89,7 +84,6 @@
                         </HBox>
                     </VBox>
 
-                    <!-- Lista de Libros -->
                     <VBox spacing="15.0" styleClass="table-section" VBox.vgrow="ALWAYS">
                         <Label text="Catálogo de Libros" styleClass="section-title">
                             <font>
@@ -110,14 +104,12 @@
                 </VBox>
             </Tab>
 
-            <!-- Tab: Gestión de Usuarios -->
             <Tab text="Gestión de Usuarios">
                 <VBox spacing="20.0" styleClass="content-section">
                     <padding>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                     </padding>
 
-                    <!-- Agregar Usuario -->
                     <VBox spacing="15.0" styleClass="form-section">
                         <Label text="Registrar Nuevo Usuario" styleClass="section-title">
                             <font>
@@ -152,7 +144,6 @@
                         </HBox>
                     </VBox>
 
-                    <!-- Lista de Usuarios -->
                     <VBox spacing="15.0" styleClass="table-section" VBox.vgrow="ALWAYS">
                         <Label text="Usuarios Registrados" styleClass="section-title">
                             <font>
@@ -172,14 +163,12 @@
                 </VBox>
             </Tab>
 
-            <!-- Tab: Préstamos -->
             <Tab text="Gestión de Préstamos">
                 <VBox spacing="20.0" styleClass="content-section">
                     <padding>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                     </padding>
 
-                    <!-- Realizar Préstamo -->
                     <VBox spacing="15.0" styleClass="form-section">
                         <Label text="Realizar Préstamo" styleClass="section-title">
                             <font>
@@ -211,7 +200,6 @@
                         </HBox>
                     </VBox>
 
-                    <!-- Lista de Préstamos -->
                     <VBox spacing="15.0" styleClass="table-section" VBox.vgrow="ALWAYS">
                         <Label text="Préstamos Activos" styleClass="section-title">
                             <font>
@@ -231,7 +219,6 @@
                 </VBox>
             </Tab>
 
-            <!-- Tab: Estadísticas -->
             <Tab text="Estadísticas">
                 <VBox spacing="20.0" styleClass="content-section">
                     <padding>
@@ -251,7 +238,6 @@
                         </HBox>
                     </VBox>
 
-                    <!-- Área de Estadísticas -->
                     <VBox spacing="15.0" styleClass="report-section" VBox.vgrow="ALWAYS">
                         <Label text="Reporte de Estadísticas" styleClass="section-title">
                             <font>
@@ -267,7 +253,6 @@
         </TabPane>
     </center>
 
-    <!-- Status Bar -->
     <bottom>
         <HBox alignment="CENTER_LEFT" styleClass="status-bar">
             <padding>
