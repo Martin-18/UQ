@@ -28,6 +28,7 @@ public class AdministradorController {
     @FXML private Button eliminarEmpleadoBtn;
     @FXML private Button agregarCredencialBtn;
     @FXML private Button generarReporteBtn;
+    @FXML private Button modificarEmpleadoBtn;
 
     private App App;
     private Administrador administrador;
@@ -47,17 +48,27 @@ public class AdministradorController {
         eliminarEmpleadoBtn.setOnAction(e -> eliminarEmpleado());
         agregarCredencialBtn.setOnAction(e -> agregarCredencial());
         generarReporteBtn.setOnAction(e -> generarReporte());
-
-        // Configurar estilos
-        configurarEstilos();
-
-        // Configurar la selección de la tabla
+        
+        // Agregar el evento para el botón de modificar
+        modificarEmpleadoBtn.setOnAction(e -> modificarEmpleado());
+        
+        // Configurar la selección de la tabla para habilitar/deshabilitar botones
         empleadosTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
-                    eliminarEmpleadoBtn.setDisable(newValue == null);
+                    boolean haySeleccion = newValue != null;
+                    eliminarEmpleadoBtn.setDisable(!haySeleccion);
+                    modificarEmpleadoBtn.setDisable(!haySeleccion);
+                    
+                    if (haySeleccion) {
+                        // Llenar los campos con los datos del empleado seleccionado
+                        nombreEmpleadoField.setText(newValue.getNombre());
+                        idEmpleadoField.setText(String.valueOf(newValue.getId()));
+                    }
                 }
         );
-
+        
+        // Deshabilitar botones inicialmente
+        modificarEmpleadoBtn.setDisable(true);
         eliminarEmpleadoBtn.setDisable(true);
     }
 
@@ -192,11 +203,6 @@ public class AdministradorController {
         timeline.play();
     }
 
-    // Setters para dependency injection
-    public void setMainApp(App App) {
-        this.App = App;
-    }
-
     public void setAdministrador(Administrador administrador) {
         this.administrador = administrador;
         if (administrador != null) {
@@ -206,5 +212,66 @@ public class AdministradorController {
 
     public void setBiblioteca(Biblioteca biblioteca) {
         this.biblioteca = biblioteca;
+    }
+
+    @FXML
+    private void modificarEmpleado() {
+        Bibliotecario empleadoSeleccionado = empleadosTable.getSelectionModel().getSelectedItem();
+        
+        if (empleadoSeleccionado == null) {
+            mostrarError("Por favor, seleccione un empleado de la tabla");
+            return;
+        }
+
+        String nuevoNombre = nombreEmpleadoField.getText().trim();
+        String idTexto = idEmpleadoField.getText().trim();
+
+        if (nuevoNombre.isEmpty() || idTexto.isEmpty()) {
+            mostrarError("Por favor, complete todos los campos");
+            return;
+        }
+
+        try {
+            int nuevoId = Integer.parseInt(idTexto);
+
+            // Verificar que el nuevo ID no esté duplicado (excepto si es el mismo)
+            for (Bibliotecario emp : administrador.getEmpleados()) {
+                if (emp.getId() == nuevoId && emp != empleadoSeleccionado) {
+                    mostrarError("Ya existe otro empleado con ese ID");
+                    return;
+                }
+            }
+
+            // Mostrar diálogo de confirmación
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar modificación");
+            alert.setHeaderText("¿Está seguro de modificar este empleado?");
+            alert.setContentText("Empleado: " + empleadoSeleccionado.getNombre() + 
+                               "\nNuevos datos:\nNombre: " + nuevoNombre + 
+                               "\nID: " + nuevoId);
+
+            if (alert.showAndWait().get() == ButtonType.OK) {
+                // Actualizar datos del empleado
+                empleadoSeleccionado.setNombre(nuevoNombre);
+                empleadoSeleccionado.setId(nuevoId);
+
+                // Actualizar la tabla
+                actualizarTablaEmpleados();
+                
+                // Limpiar campos
+                limpiarCampos();
+                
+                mostrarExito("Empleado modificado exitosamente");
+            }
+
+        } catch (NumberFormatException e) {
+            mostrarError("El ID debe ser un número válido");
+        }
+    }
+
+    private void limpiarCampos() {
+        nombreEmpleadoField.clear();
+        idEmpleadoField.clear();
+        empleadosTable.getSelectionModel().clearSelection();
     }
 }

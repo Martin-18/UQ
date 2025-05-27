@@ -1,5 +1,6 @@
 package co.edu.uniquindio.poo.proyectofinal;
 
+import co.edu.uniquindio.poo.proyectofinal.Controller.AdministradorController;
 import co.edu.uniquindio.poo.proyectofinal.Controller.LoginController;
 import co.edu.uniquindio.poo.proyectofinal.Model.*;
 import javafx.application.Application;
@@ -10,12 +11,16 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-    public class App extends Application {
+import java.io.IOException;
+
+public class App extends Application {
 
     private static Biblioteca biblioteca;
     private static Administrador administrador;
     private static Bibliotecario bibliotecario;
     private Stage primaryStage;
+
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -24,16 +29,17 @@ import java.util.ArrayList;
 
         // Configurar ícono de la aplicación
         try {
-            this.primaryStage.getIcons().add(new Image("/images/library-icon.png"));
+            Image icon = new Image(getClass().getResourceAsStream("/co/edu/uniquindio/poo/proyectofinal/images/logo.png"));
+            this.primaryStage.getIcons().add(icon);
         } catch (Exception e) {
-            System.out.println("No se pudo cargar el ícono de la aplicación");
+            System.err.println("Error al cargar el ícono de la aplicación: " + e.getMessage());
         }
 
-        inicializarSistema();
-        initRootLayout();
+        openViewPrincipal();
     }
 
-    private void inicializarSistema() {
+
+    private void inicializarData() {
         // Inicializar biblioteca
         biblioteca = new Biblioteca("Biblioteca UQ", 1001);
 
@@ -139,32 +145,35 @@ import java.util.ArrayList;
         bibliotecario.realizarPrestamo(1002, "Cien Años de Soledad");
     }
 
-    private void initRootLayout() {
+    private void openViewPrincipal() {
+        inicializarData();
         try {
-            // Cargar la vista de login
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("/fxml/LoginView.fxml"));
+            loader.setLocation(App.class.getResource("/co/edu/uniquindio/poo/proyectofinal/LoginView.fxml"));
+            Scene scene = new Scene(loader.load());
+            LoginController loginController = loader.getController();
+            loginController.setApp(this);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void abrirVistaAdministrador() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(App.class.getResource("/co/edu/uniquindio/poo/proyectofinal/AdministradorView.fxml"));
             Scene scene = new Scene(loader.load());
 
-            // Cargar estilos CSS
-            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
-
-            // Configurar el controlador
-            LoginController controller = loader.getController();
-            controller.setMainApp(this);
+            AdministradorController controller = loader.getController();
             controller.setAdministrador(administrador);
-            controller.setBibliotecario(bibliotecario);
+            controller.setBiblioteca(biblioteca);
 
             primaryStage.setScene(scene);
-            primaryStage.setResizable(true);
-            primaryStage.setMinWidth(600);
-            primaryStage.setMinHeight(500);
             primaryStage.show();
-
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Error al cargar la interfaz: " + e.getMessage());
         }
     }
 
@@ -187,6 +196,6 @@ import java.util.ArrayList;
     }
 
     public static void main(String[] args) {
-        launch(args);
+        launch();
     }
 }
